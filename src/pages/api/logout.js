@@ -1,3 +1,5 @@
+import cookie from 'cookie';
+
 export default function handleLogout(req, res) {
     res.status(200)
         .setHeader("Set-Cookie", cookie.serialize("jwt", "", {
