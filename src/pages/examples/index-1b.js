@@ -1,28 +1,32 @@
 // Option 1b: fetch products on the server side 
 // but with Incremental Static Regeneration (in getStaticProps)
-import Page from '@/components/Page'
-import ProductCard from '@/components/ProductCard'
 import { getProducts } from '@/lib/products'
+import Head from 'next/head'
 
 export async function getStaticProps() {
   const products = await getProducts()
   return {
     props: { products },
+    revalidate: 30,
   }
 }
 
 export default function HomePage({ products }) {
   return (
     <>
-      <Page title="Indoor Plants">
-        <ul className='grid grid-cols-1 lg:grid-cols-3'>
+      <Head>
+        <title>Next Shop</title>
+      </Head>
+      <main>
+        <h1>_Next Shop_</h1>
+        <ul>
           {products.map((product) => (
-            <li key={product.id} className="flex justify-center items-center">
-              <ProductCard product={product} />
+            <li key={product.id}>
+              {product.title}
             </li>
           ))}
         </ul>
-      </Page>
+      </main>
     </>
   )
 }
