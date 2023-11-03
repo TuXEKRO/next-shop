@@ -1,4 +1,6 @@
+import AddToCartWidget from "@/components/AddToCartWidget";
 import Page from "@/components/Page";
+import { useUser } from "@/hooks/user";
 import { getProduct, getProducts } from "@/lib/products";
 import Image from "next/image";
 
@@ -29,6 +31,7 @@ export async function getStaticProps({ params: { id } }) {
 }
 
 export default function ProductPage({ product }) {
+    const user = useUser()
     return (
         <>
             <Page title={product.title}>
@@ -41,6 +44,7 @@ export default function ProductPage({ product }) {
                         <p className="text-lg font-bold mt-2">
                             {product.price}
                         </p>
+                        {user && <AddToCartWidget productId={product.id} />}
                     </div>
                 </div>
             </Page>
